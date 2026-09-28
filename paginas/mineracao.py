@@ -1,3 +1,5 @@
+import streamlit as st
+
 from sklearn import preprocessing
 
 
@@ -32,12 +34,14 @@ def pg_mineracao() -> None:
         k=[k],
     )
 
+    # Obter a matriz com os clusters e os dados originais.
     C = Matrizes.clustering(
         D=D,
         rotulos=modelos[k].labels_,
         formato='dados_originais'
     )
 
+    # Exibir mapa.
     geo_json = coletar_coordenadas_parana()
     mapa = mapa_microrregioes(
         C=C,

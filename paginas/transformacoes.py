@@ -17,6 +17,7 @@ def pg_transformacoes() -> None:
         CarregadorDadosEstruturados.cedc()
     )
     comp.tabela(D)
+    
 
     # Aplicar normalização por z-score nos dados.
     X = preprocessing.StandardScaler().fit_transform(D)

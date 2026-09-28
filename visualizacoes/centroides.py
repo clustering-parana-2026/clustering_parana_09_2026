@@ -1,3 +1,5 @@
+"""Construção do gráfico dos centroides da clusterização."""
+
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -11,7 +13,34 @@ import utils.plotagem as funcs
 
 
 
-def centroides(C) -> go.Figure:
+def centroides(C: pd.DataFrame) -> go.Figure:
+    """Constrói um gráfico dos centroides dos clusters e da média geral.
+
+    Parameters
+    ----------
+    C : pandas.DataFrame
+        Matriz de atributos com a coluna ``cluster``, que identifica o
+        agrupamento de cada observação. As demais colunas contêm os
+        valores numéricos dos atributos utilizados no cálculo das médias.
+
+    Returns
+    -------
+    plotly.graph_objects.Figure
+        Gráfico de linhas com marcadores que apresenta as médias dos
+        atributos de cada cluster. A linha cinza tracejada representa
+        a média geral de todas as observações.
+
+    Notes
+    -----
+    Os centroides são calculados pela média dos atributos das observações
+    de cada cluster, na escala dos dados fornecidos em ``C``. A média
+    geral é calculada diretamente sobre todas as observações, sem
+    atribuir pesos iguais aos clusters.
+
+    Os atributos ``alagamento_chuva_enxurrada_inundacao``, ``estiagem``
+    e ``granizo_vendaval`` são identificados no eixo horizontal como
+    X_1, X_2 e X_3, respectivamente.
+    """
     df_desastre_por_cluster = C.groupby('cluster').mean()
     media_geral = C.drop(columns='cluster').mean()
 
@@ -54,9 +83,6 @@ def centroides(C) -> go.Figure:
         showlegend=True,
         template=template_plotly,
         xaxis=dict(
-            title=dict(
-                text='X<sub>j</sub>'
-            ),
             tickmode="array",
             tickvals=[
                 "alagamento_chuva_enxurrada_inundacao",
@@ -64,8 +90,8 @@ def centroides(C) -> go.Figure:
                 "granizo_vendaval",
             ],
             ticktext=[
-                f'X<sub>{i}</sub>' 
-                for i in range(1, 3+1)
+                f'X<sub>{j}</sub>' 
+                for j in range(1, 3+1)
             ]
         ),
         yaxis=dict(

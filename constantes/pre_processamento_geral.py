@@ -1,4 +1,6 @@
-colunas_caractere_antigo_por_caractere_novo = str.maketrans({
+"""Padrões para implementar no pré-processamento dos dados gerais"""
+
+colunas_caractere_antigo_por_caractere_novo: dict[str, str] = str.maketrans({
     'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a',
     'é': 'e', 'ê': 'e',
     'í': 'i',

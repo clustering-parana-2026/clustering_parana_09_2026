@@ -1,22 +1,24 @@
+"""Construção de tabelas Plotly."""
+
 import plotly.graph_objects as go
 import pandas as pd
 
 
 import constantes.estilos as est
 
-from utils.tipos import Escalar
 import utils.plotagem as funcs
 
 
 
 
 
-
-def _levar_colunas_do_df_para_plotly(df):
+def _levar_colunas_do_df_para_plotly(df: pd.DataFrame) -> list[str]:
+    """Retorna os nomes das colunas como uma lista."""
     return list(df.columns)
 
 
-def _levar_valores_do_df_para_plotly(df):
+def _levar_valores_do_df_para_plotly(df: pd.DataFrame) -> list[list]:
+    """Retorna os valores como uma lista de listas, uma por coluna."""
     return [df[col].to_list() for col in df.columns]
 
 
@@ -26,8 +28,32 @@ def _template_tabela(
     altura: int = est.altura, 
     largura: int = est.largura,
 ) -> go.Figure:
-    """
-    Template para as tabelas.
+    """Template para as tabelas.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dados apresentados na tabela. O índice não é incluído.
+    colunas : list[str] or None, optional
+        Rótulos dos cabeçalhos, na ordem das colunas de ``df``.
+        Deve conter um rótulo por coluna. Se None, utiliza os nomes
+        originais das colunas.
+    altura : int, optional
+        Altura da figura, em pixels. O padrão é ``constantes.estilos.altura``.
+    largura : int, optional
+        Largura da figura, em pixels. O padrão é ``constantes.estilos.largura``.
+
+    Returns
+    -------
+    plotly.graph_objects.Figure
+        Tabela com conteúdo centralizado, fonte e bordas pretas,
+        preenchimento transparente e valores numéricos arredondados
+        para duas casas decimais.
+
+    Notes
+    -----
+    O arredondamento é aplicado a uma cópia dos dados e não garante
+    a exibição de duas casas decimais em todos os valores.
     """
     if colunas is None:
         colunas = list(df.columns)

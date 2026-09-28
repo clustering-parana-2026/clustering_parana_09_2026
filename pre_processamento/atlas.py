@@ -1,3 +1,5 @@
+"""Pré-processar dados ATLAS."""
+
 import pandas as pd
 
 
@@ -7,6 +9,8 @@ from carregamento.dados_tabulares_principais import CarregadorDadosBrutos
 
 
 
+
+# Não atualizada, precisa de manutenção!
 
 @marcar_tempo_de_execucao() 
 def estruturar_arquivo_atlas(arquivo_final) -> None:

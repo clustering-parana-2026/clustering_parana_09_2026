@@ -1,3 +1,5 @@
+"""Template geral para os gráficos Plotly."""
+
 import plotly.graph_objects as go
 
 
@@ -53,7 +55,7 @@ template_plotly.layout = dict(
         gridcolor='black',
         linecolor='black', 
     ),
-    margin=dict(t=10,b=55,r=50,l=50),
+    margin=dict(t=10,b=45,r=50,l=50),
     paper_bgcolor='white',
     plot_bgcolor='white',
     width=est.largura,

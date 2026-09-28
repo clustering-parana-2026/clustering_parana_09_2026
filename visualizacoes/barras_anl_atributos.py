@@ -1,5 +1,4 @@
-from math import ceil
-
+"""Construção de gráficos de barras para a análise descritiva dos atributos."""
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -14,10 +13,26 @@ import utils.plotagem as funcs
 
 
 
-
 def _template_barras_horizontais(sr: pd.Series) -> go.Figure:
-    """
-    Template para os gráficos de barra.
+    """Constrói um gráfico de barras horizontais a partir de uma série.
+
+    Parameters
+    ----------
+    sr : pandas.Series
+        Série com as categorias no índice e os valores numéricos
+        representados pelo comprimento das barras.
+
+    Returns
+    -------
+    plotly.graph_objects.Figure
+        Figura com as categorias no eixo vertical e os valores no
+        eixo horizontal, formatada segundo os estilos do projeto.
+
+    Notes
+    -----
+    A espessura das barras é definida como ``0.075 * sr.size``,
+    para padronizar a espessura mesmo para diferentes números de 
+    barras.
     """
     fig = go.Figure()
     fig.add_trace(

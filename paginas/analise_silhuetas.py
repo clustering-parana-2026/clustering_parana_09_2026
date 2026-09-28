@@ -24,6 +24,7 @@ def pg_analise_silhuetas() -> None:
         CarregadorDadosEstruturados.cedc()
     )
 
+
     # Aplicar normalização por z-score nos dados.
     X = preprocessing.StandardScaler().fit_transform(D)
 
@@ -34,10 +35,10 @@ def pg_analise_silhuetas() -> None:
         k=list(range(2,15)),
     )
 
-    # Instanciar analisados de silhuetas.
-    anl_sil = AnaliseSilhuetas(
-        modelos=modelos,
-    ) 
+
+    # Instanciar analisador de silhuetas.
+    anl_sil = AnaliseSilhuetas(modelos=modelos,) 
+
 
     # Escolher candidatos para k a partir da silhueta média.
     larguras_medias_globais_das_silhuetas = anl_sil.calcular_largura_media_global_da_silhueta(
@@ -48,6 +49,7 @@ def pg_analise_silhuetas() -> None:
         larguras_medias_globais_das_silhuetas
     )
     comp.grafico(grafico_silhuetas_medias)
+    
 
     # Silhuetas por objeto usando os mesmos modelos.
     silhuetas_dos_clusters = (

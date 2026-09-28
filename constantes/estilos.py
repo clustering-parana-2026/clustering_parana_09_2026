@@ -1,3 +1,5 @@
+"""Padrões estilísticos para os gráficos da aplicação."""
+
 # Dimensões padrão dos gráficos.
 largura: float = 400
 altura: float = 180

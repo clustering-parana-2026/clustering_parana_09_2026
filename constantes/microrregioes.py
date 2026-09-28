@@ -1,3 +1,5 @@
+"""Registro das microrregiões do Paraná."""
+
 mesorregiao_por_microrregioes_por_municipios: dict[str, dict[str, list]] = {
     'noroeste': {
         'Paranavaí': [

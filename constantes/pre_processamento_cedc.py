@@ -1,3 +1,5 @@
+"""Padrões para implementar no pré-processamento dos dados da CEDC."""
+
 colunas_nome_antigo_por_nome_novo: dict[str, str] = {
     'quantidade': 'quantidade_material',
     'data_da_solicitacao': 'data_solicitacao',
@@ -5,7 +7,7 @@ colunas_nome_antigo_por_nome_novo: dict[str, str] = {
     'data_da_ocorrencia': 'data_ocorrencia',
 }
 
-nome_nova_coluna_por_dict_valor_antigo_por_valor_novo = {
+nome_nova_coluna_por_dict_valor_antigo_por_valor_novo: dict[str, dict[str, str]] = {
     'grupo_desastre': {
         'Tempestade Local/Convectiva - Chuvas Intensas': 'metereologico', 
         'Tempestade Local/Convectiva - Granizo': 'metereologico',

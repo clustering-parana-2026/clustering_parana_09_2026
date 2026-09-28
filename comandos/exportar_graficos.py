@@ -1,3 +1,14 @@
+"""Arquivo executável para exportar gráficos.
+
+Implementa a classe interna ``_Downloader`` para
+gerenciar a exportação tanto de gráficos Plotly 
+quanto Graphviz.
+
+Arquivo executável como módulo:
+>>> python3 -m comandos.exportar_graficos
+
+"""
+
 from pathlib import Path
 
 
@@ -11,6 +22,7 @@ from carregamento.dados_tabulares_principais import CarregadorDadosEstruturados
 from carregamento.coordenadas_mapa import coletar_coordenadas_parana
 
 import constantes.estilos as est
+import constantes.caminhos as caminhos
 
 from utils.decoradores import marcar_tempo_de_execucao
 
@@ -31,30 +43,32 @@ from core.mineracao import Mineracao
 
 
 
-
-
 class _Downloader:
-    def __init__(self, path: Path) -> None:
-        self.path = path
+    def __init__(self, caminho: str) -> None:
+        self.caminho = Path(caminho)
 
 
     def download_plotly(
         self,
         plot: go.Figure, 
-        filename: str, 
+        arquivo: str, 
     ) -> None:
-        output_file = self.path / filename
+        arquivo_final = self.caminho / arquivo
         plot.write_image(
-            output_file, 
+            arquivo_final, 
             width=int(plot.layout.width or est.largura),
             height=int(plot.layout.height or est.altura),
         )
         
 
-    def download_graphviz(self, plot: graphviz.Digraph, filename: str) -> None:
+    def download_graphviz(
+        self, 
+        plot: graphviz.Digraph, 
+        arquivo: str
+    ) -> None:
         plot.render(
-            filename=filename, 
-            directory=self.path,
+            filename=arquivo, 
+            directory=self.caminho,
             view=False,
             cleanup=True,
             format='pdf'
@@ -62,17 +76,13 @@ class _Downloader:
 
 
 
-
 @marcar_tempo_de_execucao()
 def main() -> None:
-    # --- Setup --- #
-
-    # Criar pasta para armazenar os gráficos.
-    output_dir = Path('visualizacoes_exportadas')
-    output_dir.mkdir(exist_ok=True)
+    # Carregar os dados.
+    df = CarregadorDadosEstruturados.cedc()
 
     # Instanciar gerenciador de downloads de gráficos.
-    DWLD = _Downloader(output_dir)
+    DWLD = _Downloader(caminhos.pasta_graficos)
 
     # --- Fluxogramas --- #
 
@@ -82,9 +92,7 @@ def main() -> None:
     # --- Análise Atributos --- #
 
     # Inicialização.
-    anl_atr = AnaliseAtributos(
-        CarregadorDadosEstruturados.cedc()
-    )
+    anl_atr = AnaliseAtributos(df)
 
     # Visualizar frequência dos subgrupos de desastre.
     frequencia_desastres = anl_atr.calcular_frequencia_desastres()
@@ -148,9 +156,7 @@ def main() -> None:
     # --- Análise silhuetas e mineração --- #
 
     # Carregar matriz de atributos.
-    D = Matrizes.atributos(
-        CarregadorDadosEstruturados.major_daniel()
-    )
+    D = Matrizes.atributos(df)
 
     # Aplicar normalização por z-score nos dados.
     X = preprocessing.StandardScaler().fit_transform(D)

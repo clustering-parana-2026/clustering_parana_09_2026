@@ -1,3 +1,11 @@
+"""Visualização da largura média da silhueta para cada k.
+
+Marca cada k de interesse invidualmente.
+
+Utiliza os coeficientes de silhueta como uma medida de 
+validação relativa.
+"""
+
 from numpy.typing import ArrayLike
 
 
@@ -13,7 +21,21 @@ from utils.template_plotly import template_plotly
 
 
 
-def larguras_medias_silhuetas(sr: pd.Series):
+def larguras_medias_silhuetas(sr: pd.Series) -> go.Figure:
+    """Simples gráfico bivariado para as larguras médias globais de silhueta.
+
+    Parameters
+    ----------
+    sr : pd.Series
+        Série com o eixo x no index e com o 
+        eicxo y no nos valores.
+
+    Returns
+    -------
+    plotly.graph_objects.Figure
+        Gráfico de linhas e pontos atribuindo uma largura média 
+        global de silhueta para cada número de clusters.
+    """
     fig = go.Figure()
     fig.add_trace(
         go.Scatter(

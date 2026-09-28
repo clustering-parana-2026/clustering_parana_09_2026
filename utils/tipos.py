@@ -1,4 +1,4 @@
-from typing import Literal 
+"""Tipos próprios."""
 
 
 

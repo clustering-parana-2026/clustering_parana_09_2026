@@ -1,3 +1,5 @@
+"""Pré-processar dados do Índice de Progressão Social (IPS)."""
+
 import pandas as pd
 
 
@@ -10,6 +12,8 @@ import utils.pre_processamento as pre_processamento
 
 
 
+
+# Não atualizada, precisa de manutenção!
 
 @marcar_tempo_de_execucao()
 def estruturar_arquivo_ips(arquivo_final) -> None:

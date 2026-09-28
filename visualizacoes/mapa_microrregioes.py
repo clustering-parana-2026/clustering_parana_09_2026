@@ -1,5 +1,4 @@
-from math import ceil   
-
+"""Visualização dos clusters das microrregiões do Paraná em mapa."""
 
 import plotly.graph_objects as go
 import pandas as pd
@@ -14,12 +13,40 @@ import utils.plotagem as funcs
 
 
 
-
-
 def mapa_microrregioes(
     C: pd.DataFrame,
     geo_json,
 ) -> go.Figure:
+    """Constrói um mapa das microrregiões coloridas por cluster.
+
+    Parameters
+    ----------
+    C : pandas.DataFrame
+        Tabela com os nomes das microrregiões no índice e seus rótulos
+        de agrupamento na coluna ``cluster``. Os rótulos devem ser
+        inteiros não negativos que indexem a paleta de cores do projeto.
+    geo_json : dict
+        Dados geográficos das microrregiões no formato GeoJSON.
+        Cada feição deve conter o nome da microrregião em
+        ``properties.nome``, correspondente ao nome utilizado no
+        índice de ``C``.
+
+    Returns
+    -------
+    plotly.graph_objects.Figure
+        Mapa com uma cor por cluster, limites das microrregiões em
+        branco e legenda com os rótulos dos agrupamentos. Apresenta
+        fundo branco e moldura preta.
+
+    Notes
+    -----
+    A correspondência entre as observações de ``C`` e as feições
+    geográficas é estabelecida pelos nomes das microrregiões.
+
+    Cada cluster recebe a cor da paleta do projeto na posição
+    indicada por seu rótulo. O mapa é centralizado no Paraná,
+    nas coordenadas de latitude -24,5 e longitude -51,5.
+    """
     fig = go.Figure()
 
     for cluster, grupo in C.groupby("cluster", sort=True):

@@ -1,3 +1,5 @@
+"""Padrões para implementar na transformação dos dados da CEDC."""
+
 coluna_por_dict_valores_novos: dict[str, dict[str, str]] = {
     'desastre': {
         'Tempestade Local/Convectiva - Chuvas Intensas': 'chuva_intensa',

@@ -20,17 +20,20 @@ def pg_analise_atributos() -> None:
         CarregadorDadosEstruturados.cedc()
     )
 
+
     # Visualizar frequência dos subgrupos de desastre.
     frequencia_desastres = anl.calcular_frequencia_desastres()
     grafico_freq_desastres = barras.barras_frequencia_desastres(frequencia_desastres)
     st.markdown(f'## frequencia_desastres')
     comp.grafico(grafico_freq_desastres)
 
+
     # Visualizar frequência a frequência com que cada material foi enviado.
     frequencia_materiais = anl.calcular_frequencia_materiais()
     grafico_freq_materiais = barras.barras_frequencia_materiais(frequencia_materiais)
     st.markdown(f'## frequencia_materiais')
     comp.grafico(grafico_freq_materiais)
+
 
     # Observar estatíticas relacionadas aos lotes de cada tipo de material.
     sumario_envios_de_material = anl.calcular_sumario_envios_de_material()
@@ -42,11 +45,10 @@ def pg_analise_atributos() -> None:
     st.markdown(f'## sumario_lotes')
     comp.grafico(grafico_sumario_envios)
 
+
     # Observar relacão entre materiais por subgrupo de desastre.
     quantidade_normalizada_de_material_por_desastre = (
-        anl.calcular_quantidade_normalizada_de_material_por_agrupamento(
-            col='desastre',
-        )
+        anl.calcular_quantidade_normalizada_de_material_por_agrupamento()
     )
     grafico_qtd_material_por_desastre = (
         tabelas.tabela_quantidades_normalizadas_por_desastre(
@@ -55,6 +57,7 @@ def pg_analise_atributos() -> None:
     )
     st.markdown(f'## relacoes_material_desastre')
     comp.grafico(grafico_qtd_material_por_desastre)
+
 
     # Correlação.
     correlacao_desastres_sobre_material = (
@@ -69,6 +72,7 @@ def pg_analise_atributos() -> None:
     )
     st.markdown(f'## correlacao_desastres_sobre_material')
     comp.grafico(grafico_correlacao_desastres_sobre_material)
+
 
     # Observar relacão entre materiais por subgrupo de desastre.
     quantidade_normalizada_de_material_por_atributo = (
